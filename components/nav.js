@@ -12,7 +12,6 @@ class Nav extends HTMLElement {
     // add listeners
     window.addEventListener('resize', this.handleWindowResize);
     this.fetchCities();
-    console.log('active is: ', this.active);
   }
 
   fetchCities = async () => {
@@ -22,6 +21,17 @@ class Nav extends HTMLElement {
       this.cities = data['cities'];
       this.render();
     });
+  }
+
+  selectCity( city ){
+    const item = document.getElementById(city);
+    if( item.classList.contains('cm-menu__list__item--active') ) return;
+    // change active city
+    // first, clear class of all items
+    const siblings = item => [...item.parentElement.children].filter(s=>s!=item);
+    siblings(item).forEach(elem => elem.classList.remove('cm-menu__list__item--active'));
+    console.log(siblings);
+    item.classList.add('cm-menu__list__item--active');
   }
 
   // listeners
@@ -39,9 +49,8 @@ class Nav extends HTMLElement {
     
     // data received from api under this.cities
     const cities = this.cities;
-    console.log(cities);
 
-    // create list item
+    // create list and list items
     let ul = document.createElement("ul");
     ul.setAttribute('class', 'cm-menu__list');
     cities.forEach( (city, i) => {
@@ -54,10 +63,11 @@ class Nav extends HTMLElement {
       }
       // key not necessary, but if converted to React
       li.innerHTML = city.label;
+      li.onclick = () => this.selectCity(city.section);
       ul.appendChild(li);      
     });
 
-    // create nav item
+    // create nav element
     let nav = document.createElement("nav");
     nav.classList.add('cm-menu');
     nav.appendChild(ul);
