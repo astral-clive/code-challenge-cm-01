@@ -55,6 +55,10 @@ class Nav extends HTMLElement {
     let nav = document.createElement("nav");
     nav.setAttribute('class', 'cm-menu');
     nav.appendChild(ul);
+    // add monorail
+    let monorail = document.createElement("div");
+    monorail.setAttribute('class', 'cm-menu__monorail');
+    nav.appendChild(monorail);
 
     // throw that badboy in the element
     this.innerHTML = '';

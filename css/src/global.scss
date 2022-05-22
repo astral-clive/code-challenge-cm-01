@@ -21,8 +21,12 @@ body {
   font-size: 14px;
   display: grid;
   grid-template-columns: 27fr 1003fr 24fr;
+  grid-template-rows: auto 2px;
+
+  // ul.cm-menu__list
   &__list {
     grid-column: 2;
+    grid-row: 1;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -31,12 +35,13 @@ body {
     justify-content: space-between;
     align-items: center;
     // border bottom is most likely not the move
-    border-bottom: 2px solid $gray_light;
+    // border-bottom: 2px solid $gray_light;
     &__item {
       color: $gray_dark;
       cursor: pointer;
       font-size: 1em;
       padding: 12px 0;
+      // decided against font-weight
       &:hover {
         color: $blue_light;
         // border bottom was not the move
@@ -46,4 +51,15 @@ body {
       }
     }
   }
+
+  // div.cm-menu__monorail
+  &__monorail {
+    grid-column: 2;
+    grid-row: 2;
+    background: $gray_light;
+    overflow: hidden;
+  }
+  
+
+
 }

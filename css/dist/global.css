@@ -10,16 +10,17 @@ body {
   font-size: 14px;
   display: grid;
   grid-template-columns: 27fr 1003fr 24fr;
+  grid-template-rows: auto 2px;
 }
 .cm-menu__list {
   grid-column: 2;
+  grid-row: 1;
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid #DDD;
 }
 .cm-menu__list__item {
   color: #999;
@@ -32,4 +33,10 @@ body {
 }
 .cm-menu__list__item--active {
   color: #010101;
+}
+.cm-menu__monorail {
+  grid-column: 2;
+  grid-row: 2;
+  background: #DDD;
+  overflow: hidden;
 }/*# sourceMappingURL=global.css.map */
