@@ -1,3 +1,35 @@
 body {
-  background: #fff;
+  padding: 0;
+  margin: 0;
+  background: #FFF;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #999;
+}
+
+.cm-menu {
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 27fr 1003fr 24fr;
+}
+.cm-menu__list {
+  grid-column: 2;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #DDD;
+}
+.cm-menu__list__item {
+  color: #999;
+  cursor: pointer;
+  font-size: 1em;
+  padding: 12px 0;
+}
+.cm-menu__list__item:hover {
+  color: #3f83bf;
+}
+.cm-menu__list__item--active {
+  color: #010101;
 }/*# sourceMappingURL=global.css.map */

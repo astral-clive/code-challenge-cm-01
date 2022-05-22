@@ -1,1 +1,49 @@
-body { background: #fff; }
+// variables to keep that consistency
+$background: #FFF;
+$gray_dark: #999;
+$gray_light: #DDD;
+$black: #010101;
+$blue_light: #3f83bf;
+
+body {
+  // minor reset
+  padding: 0;
+  margin: 0;
+  // why not
+  background: $background;
+  // a good guess
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  color: $gray_dark;
+}
+
+// on a 1059px screen, 1003px wide with margins of 27px(L) 24px(R)
+.cm-menu {
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: 27fr 1003fr 24fr;
+  &__list {
+    grid-column: 2;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    // now that we've got that out of the way
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // border bottom is most likely not the move
+    border-bottom: 2px solid $gray_light;
+    &__item {
+      color: $gray_dark;
+      cursor: pointer;
+      font-size: 1em;
+      padding: 12px 0;
+      &:hover {
+        color: $blue_light;
+        // border bottom was not the move
+      }
+      &--active {
+        color: $black;
+      }
+    }
+  }
+}

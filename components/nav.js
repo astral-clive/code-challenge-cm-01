@@ -41,9 +41,10 @@ class Nav extends HTMLElement {
 
     // create list item
     let ul = document.createElement("ul");
+    ul.setAttribute('class', 'cm-menu__list');
     cities.forEach( (city, i) => {
       let li = document.createElement("li")
-      li.setAttribute('class', 'item');
+      li.setAttribute('class', 'cm-menu__list__item');
       li.setAttribute('id', city.section);
       // key not necessary, but if converted to React
       li.innerHTML = city.label;
@@ -52,6 +53,7 @@ class Nav extends HTMLElement {
 
     // create nav item
     let nav = document.createElement("nav");
+    nav.setAttribute('class', 'cm-menu');
     nav.appendChild(ul);
 
     // throw that badboy in the element
