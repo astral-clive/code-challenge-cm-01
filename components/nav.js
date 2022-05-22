@@ -4,6 +4,7 @@ class Nav extends HTMLElement {
 
     // ideally would have a loading state
     this.cities = [];
+    this.active = this.getAttribute('active'); 
   }
 
   connectedCallback() {
@@ -11,6 +12,7 @@ class Nav extends HTMLElement {
     // add listeners
     window.addEventListener('resize', this.handleWindowResize);
     this.fetchCities();
+    console.log('active is: ', this.active);
   }
 
   fetchCities = async () => {
@@ -44,8 +46,12 @@ class Nav extends HTMLElement {
     ul.setAttribute('class', 'cm-menu__list');
     cities.forEach( (city, i) => {
       let li = document.createElement("li")
-      li.setAttribute('class', 'cm-menu__list__item');
       li.setAttribute('id', city.section);
+      li.classList.add('cm-menu__list__item');
+      // check for active
+      if( city.section == this.active ){
+        li.classList.add('cm-menu__list__item--active');
+      }
       // key not necessary, but if converted to React
       li.innerHTML = city.label;
       ul.appendChild(li);      
@@ -53,11 +59,11 @@ class Nav extends HTMLElement {
 
     // create nav item
     let nav = document.createElement("nav");
-    nav.setAttribute('class', 'cm-menu');
+    nav.classList.add('cm-menu');
     nav.appendChild(ul);
     // add monorail
     let monorail = document.createElement("div");
-    monorail.setAttribute('class', 'cm-menu__monorail');
+    monorail.classList.add('cm-menu__monorail');
     nav.appendChild(monorail);
 
     // throw that badboy in the element
