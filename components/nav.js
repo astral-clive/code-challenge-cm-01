@@ -36,13 +36,27 @@ class Nav extends HTMLElement {
     }
     
     // data received from api under this.cities
-    console.log(this.cities);
-    
-    this.innerHTML = `
-      <div>
-        Loaded.
-      </div>
-    `;
+    const cities = this.cities;
+    console.log(cities);
+
+    // create list item
+    let ul = document.createElement("ul");
+    cities.forEach( (city, i) => {
+      let li = document.createElement("li")
+      li.setAttribute('class', 'item');
+      li.setAttribute('id', city.section);
+      // key not necessary, but if converted to React
+      li.innerHTML = city.label;
+      ul.appendChild(li);      
+    });
+
+    // create nav item
+    let nav = document.createElement("nav");
+    nav.appendChild(ul);
+
+    // throw that badboy in the element
+    this.innerHTML = '';
+    this.appendChild(nav);
   }
 
 
