@@ -9,9 +9,14 @@ class Nav extends HTMLElement {
     this.render();
     // add listeners
     window.addEventListener('resize', this.handleWindowResize);
+    this.fetchCities();
   }
 
-  // fetchCities = async () => {}
+  fetchCities = async () => {
+    fetch('http://localhost:8080/api')
+    .then(response => response.json())
+    .then(data => console.log(data));
+  }
 
   // listeners
   handleWindowResize = (e) => {
