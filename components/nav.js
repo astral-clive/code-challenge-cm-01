@@ -1,3 +1,5 @@
+const navActiveClass = 'cm-menu__list__item--active';
+
 class Nav extends HTMLElement {
   constructor(){
     super();
@@ -20,23 +22,40 @@ class Nav extends HTMLElement {
     .then( (data) => {
       this.cities = data['cities'];
       this.render();
+      this.resetMonorail();
     });
   }
 
   selectCity( city ){
     const item = document.getElementById(city);
-    if( item.classList.contains('cm-menu__list__item--active') ) return;
+    if( item.classList.contains(navActiveClass) ) return;
     // change active city
     // first, clear class of all items
     const siblings = item => [...item.parentElement.children].filter(s=>s!=item);
-    siblings(item).forEach(elem => elem.classList.remove('cm-menu__list__item--active'));
-    console.log(siblings);
-    item.classList.add('cm-menu__list__item--active');
+    siblings(item).forEach(elem => elem.classList.remove(navActiveClass));
+    item.classList.add(navActiveClass);
+    this.resetMonorail();
+  }
+
+  resetMonorail() {
+    // TODO: not perfect if more than one navigation item
+    const activeItems = document.getElementsByClassName(navActiveClass);
+    const monorails = document.getElementsByClassName('cm-menu__monorail');
+    if( activeItems.length > 0 && monorails.length > 0 ){
+      // exists, reposition monorail
+      const activeItem = activeItems[0];
+      const posLeft = activeItem.offsetLeft;
+      const width = activeItem.offsetWidth;
+      // set the custom properties
+      monorails[0].style.setProperty('--train-left', posLeft + 'px');
+      monorails[0].style.setProperty('--train-width', width + 'px');
+    }
   }
 
   // listeners
   handleWindowResize = (e) => {
     // handle resize
+      this.resetMonorail();
   }
 
   render() {
@@ -59,7 +78,7 @@ class Nav extends HTMLElement {
       li.classList.add('cm-menu__list__item');
       // check for active
       if( city.section == this.active ){
-        li.classList.add('cm-menu__list__item--active');
+        li.classList.add(navActiveClass);
       }
       // key not necessary, but if converted to React
       li.innerHTML = city.label;
@@ -74,6 +93,10 @@ class Nav extends HTMLElement {
     // add monorail
     let monorail = document.createElement("div");
     monorail.classList.add('cm-menu__monorail');
+    let train = document.createElement("span"); // this metaphor...
+    train.classList.add('cm-menu__monorail__train');
+    monorail.appendChild(train);
+
     nav.appendChild(monorail);
 
     // throw that badboy in the element
