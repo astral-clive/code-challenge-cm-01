@@ -2,6 +2,7 @@ class Nav extends HTMLElement {
   constructor(){
     super();
 
+    // ideally would have a loading state
     this.cities = [];
   }
 
@@ -15,7 +16,10 @@ class Nav extends HTMLElement {
   fetchCities = async () => {
     fetch('http://localhost:8080/api')
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then( (data) => {
+      this.cities = data['cities'];
+      this.render();
+    });
   }
 
   // listeners
@@ -24,12 +28,23 @@ class Nav extends HTMLElement {
   }
 
   render() {
+    if( this.cities.length == 0 ){
+      this.innerHTML = `<div>
+        Loading...
+        </div>`;
+        return;
+    }
+    
+    // data received from api under this.cities
+    console.log(this.cities);
+    
     this.innerHTML = `
       <div>
-        Navigation Component
+        Loaded.
       </div>
     `;
   }
+
 
 }
 
