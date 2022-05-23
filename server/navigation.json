@@ -3,36 +3,43 @@
     {
       "section": "cupertino",
       "label": "Cupertino",
+      "abbr": "CUP",
       "offset": "-7"
     },
     {
       "section": "new-york-city",
       "label": "New York City",
+      "abbr": "NYC",
       "offset": "-4"
     },
     {
       "section": "london",
       "label": "London",
+      "abbr": "LON",
       "offset": "+1"
     },
     {
       "section": "amsterdam",
       "label": "Amsterdam",
+      "abbr": "AMS",
       "offset": "+2"
     },
     {
       "section": "tokyo",
       "label": "Tokyo",
+      "abbr": "TOK",
       "offset": "+9"
     },
     {
       "section": "hong-kong",
       "label": "Hong Kong",
+      "abbr": "HKO",
       "offset": "+8"
     },
     {
       "section": "sydney",
       "label": "Sydney",
+      "abbr": "SYD",
       "offset": "+10"
     }
   ]

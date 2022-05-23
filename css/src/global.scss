@@ -1,5 +1,18 @@
 @import 'inc/mixins';
 
+// media queries
+.show-desktop {
+  display: none;
+}
+@media screen and (min-width: 600px) {
+  .hide-desktop {
+    display: none;
+  }
+  .show-desktop {
+      display: inline;
+  }
+}
+
 // variables to keep that consistency
 $background: #FFF;
 $gray_dark: #999;

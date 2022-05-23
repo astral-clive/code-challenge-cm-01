@@ -144,7 +144,7 @@ class Nav extends HTMLElement {
         this.showTime();
       }
       // key not necessary, but if converted to React
-      li.innerHTML = city.label;
+      li.innerHTML = '<span class="hide-desktop">'+ city.abbr +'</span><span class="show-desktop">'+ city.label +'</span>';
       li.onclick = () => this.selectCity(city.section);
       ul.appendChild(li);      
     });
