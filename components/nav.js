@@ -41,6 +41,7 @@ class Nav extends HTMLElement {
     siblings(item).forEach(elem => elem.classList.remove(navActiveClass));
     item.classList.add(navActiveClass);
     this.resetMonorail();
+    this.showTime( item.getAttribute('offset') );
   }
 
   resetMonorail() {
@@ -56,6 +57,31 @@ class Nav extends HTMLElement {
       monorails[0].style.setProperty('--train-left', posLeft + 'px');
       monorails[0].style.setProperty('--train-width', width + 'px');
     }
+  }
+
+  showTime( offset ) {
+    if( offset == undefined ) return;
+    
+    // find the GMT time from timezone on local
+    const localDate = new Date();
+    const localOffset = localDate.getTimezoneOffset(); // in minutes
+    const localHourOffset = localOffset / 60;
+    const utcDate = new Date();
+    utcDate.setTime(localDate.getTime() + (localHourOffset*60*60*1000));
+
+    const locationTime = new Date();
+    locationTime.setTime(utcDate.getTime() + (offset*60*60*1000));
+
+    // (date.getMinutes()<10?'0':'') double digits minutes
+    let locSuffix = 'AM';
+    const locMins = ('0'+locationTime.getMinutes()).slice(-2);
+    let locHours = locationTime.getHours();
+    if( locHours > 12 ){
+      locSuffix = 'PM';
+      locHours = locHours - 12;
+    }
+    const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
+    console.log( 'location time:', locHours + ":" + locMins + ":" + locSeconds + locSuffix);
   }
 
   // listeners
@@ -82,13 +108,13 @@ class Nav extends HTMLElement {
     
     // data received from api under this.cities
     const cities = this.cities;
-
     // create list and list items
     let ul = document.createElement("ul");
     ul.setAttribute('class', 'cm-menu__list');
     cities.forEach( (city, i) => {
       let li = document.createElement("li")
       li.setAttribute('id', city.section);
+      li.setAttribute('offset', city.offset);
       li.classList.add('cm-menu__list__item');
       // check for active
       if( city.section == this.active ){
