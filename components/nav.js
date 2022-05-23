@@ -8,6 +8,8 @@ class Nav extends HTMLElement {
     this.cities = [];
     this.active = this.getAttribute('active'); 
     this.serverError = false;
+
+    this.timeOffset = false;
   }
 
   connectedCallback() {
@@ -41,7 +43,9 @@ class Nav extends HTMLElement {
     siblings(item).forEach(elem => elem.classList.remove(navActiveClass));
     item.classList.add(navActiveClass);
     this.resetMonorail();
-    this.showTime( item.getAttribute('offset') );
+    // show time
+    this.timeOffset = item.getAttribute('offset');
+    this.showTime();
   }
 
   resetMonorail() {
@@ -59,9 +63,10 @@ class Nav extends HTMLElement {
     }
   }
 
-  showTime( offset ) {
-    if( offset == undefined ) return;
-    
+  showTime() {
+    if( this.timeOffset == false ) return;
+
+    const offset = this.timeOffset;
     // find the GMT time from timezone on local
     const localDate = new Date();
     const localOffset = localDate.getTimezoneOffset(); // in minutes
