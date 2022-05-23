@@ -99,6 +99,8 @@ class Nav extends HTMLElement {
     if( locHours > 12 ){
       locSuffix = 'PM';
       locHours = locHours - 12;
+    } else if ( locHours == 0 ){
+      locHours = 12;
     }
     const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
     this.timeOutput = locHours + ':' + locMins + ':' + locSeconds + locSuffix;
@@ -135,7 +137,7 @@ class Nav extends HTMLElement {
     cities.forEach( (city, i) => {
       let li = document.createElement('li')
       li.setAttribute('id', city.section);
-      li.setAttribute('offset', city.offset);
+      li.setAttribute('offset', city.offset); // TODO: replace with API call for more reliable with daylight saving
       li.classList.add('cm-menu__list__item');
       // check for active
       if( city.section == this.active ){
@@ -144,7 +146,8 @@ class Nav extends HTMLElement {
         this.showTime();
       }
       // key not necessary, but if converted to React
-      li.innerHTML = '<span class="hide-desktop">'+ city.abbr +'</span><span class="show-desktop">'+ city.label +'</span>';
+      const cityAbbr = !city.abbr ? city.label.toUpperCase().slice(0,3) : city.abbr;
+        li.innerHTML = '<span class="hide-desktop">'+ cityAbbr +'</span><span class="show-desktop">'+ city.label +'</span>';
       li.onclick = () => this.selectCity(city.section);
       ul.appendChild(li);      
     });
