@@ -101,7 +101,7 @@ class Nav extends HTMLElement {
       locHours = locHours - 12;
     }
     const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
-    this.timeOutput = locHours + ":" + locMins + ":" + locSeconds + locSuffix;
+    this.timeOutput = locHours + ':' + locMins + ':' + locSeconds + locSuffix;
     this.pushTime();
   }
 
@@ -130,10 +130,10 @@ class Nav extends HTMLElement {
     // data received from api under this.cities
     const cities = this.cities;
     // create list and list items
-    let ul = document.createElement("ul");
+    let ul = document.createElement('ul');
     ul.setAttribute('class', 'cm-menu__list');
     cities.forEach( (city, i) => {
-      let li = document.createElement("li")
+      let li = document.createElement('li')
       li.setAttribute('id', city.section);
       li.setAttribute('offset', city.offset);
       li.classList.add('cm-menu__list__item');
@@ -150,13 +150,13 @@ class Nav extends HTMLElement {
     });
 
     // create nav element
-    let nav = document.createElement("nav");
+    let nav = document.createElement('nav');
     nav.classList.add('cm-menu');
     nav.appendChild(ul);
     // add monorail
-    let monorail = document.createElement("div");
+    let monorail = document.createElement('div');
     monorail.classList.add('cm-menu__monorail');
-    let train = document.createElement("span"); // this metaphor...
+    let train = document.createElement('span'); // this metaphor...
     train.classList.add('cm-menu__monorail__train');
     monorail.appendChild(train);
 
@@ -170,4 +170,4 @@ class Nav extends HTMLElement {
 
 }
 
-customElements.define("cm-nav", Nav);
+customElements.define('cm-nav', Nav);
