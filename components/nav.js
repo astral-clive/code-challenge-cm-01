@@ -71,8 +71,11 @@ class Nav extends HTMLElement {
   }
 
   pushTime() {
-    const clockOutput = document.getElementById('cm-clock');
-    clockOutput.innerHTML = '<span>'+this.timeOutput+'</span>';
+    if( this.timeOutput == '' ){
+      return false;
+    }
+    const clockOutput = document.getElementById('cm-clock__face');
+    clockOutput.innerHTML = this.timeOutput;
   }
 
   showTime() {
@@ -98,7 +101,6 @@ class Nav extends HTMLElement {
       locHours = locHours - 12;
     }
     const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
-    // console.log( 'location time:', locHours + ":" + locMins + ":" + locSeconds + locSuffix);
     this.timeOutput = locHours + ":" + locMins + ":" + locSeconds + locSuffix;
     this.pushTime();
   }
