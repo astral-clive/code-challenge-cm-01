@@ -18,6 +18,12 @@ class Nav extends HTMLElement {
     // add listeners
     window.addEventListener('resize', this.handleWindowResize);
     this.fetchCities();
+
+    // start clock a'tickin'
+    setInterval(() => { 
+      // TODO: improvement possible with just adding a second at a time to a date
+      this.showTime();
+    },1000);
   }
 
   fetchCities = async () => {
@@ -64,6 +70,11 @@ class Nav extends HTMLElement {
     }
   }
 
+  pushTime() {
+    const clockOutput = document.getElementById('cm-clock');
+    clockOutput.innerHTML = '<span>'+this.timeOutput+'</span>';
+  }
+
   showTime() {
     if( this.timeOffset == false ) return;
 
@@ -89,6 +100,7 @@ class Nav extends HTMLElement {
     const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
     // console.log( 'location time:', locHours + ":" + locMins + ":" + locSeconds + locSuffix);
     this.timeOutput = locHours + ":" + locMins + ":" + locSeconds + locSuffix;
+    this.pushTime();
   }
 
   // listeners
@@ -126,6 +138,8 @@ class Nav extends HTMLElement {
       // check for active
       if( city.section == this.active ){
         li.classList.add(navActiveClass);
+        this.timeOffset = city.offset;
+        this.showTime();
       }
       // key not necessary, but if converted to React
       li.innerHTML = city.label;
