@@ -7,6 +7,7 @@ class Nav extends HTMLElement {
     // ideally would have a loading state
     this.cities = [];
     this.active = this.getAttribute('active'); 
+    this.serverError = false;
   }
 
   connectedCallback() {
@@ -18,11 +19,16 @@ class Nav extends HTMLElement {
 
   fetchCities = async () => {
     fetch('http://localhost:8080/api')
-    .then(response => response.json())
-    .then( (data) => {
+    .then( response => response.json() )
+    .then( data => {
       this.cities = data['cities'];
       this.render();
       this.resetMonorail();
+    })
+    .catch((error) => {
+      this.serverError = true;
+      this.render();
+      // error found, probably not running the server
     });
   }
 
@@ -59,9 +65,17 @@ class Nav extends HTMLElement {
   }
 
   render() {
+    if( this.serverError == true ){
+      this.innerHTML = `<div id="cm-loader">
+        <span>Error - See Console</span>
+        </div>`;
+        console.log('Please go to the route of the directory and enter "npm install", and then "npm run start" to begin the server so that you can access the data from the local API.');
+        return;
+    }
+
     if( this.cities.length == 0 ){
-      this.innerHTML = `<div>
-        Loading...
+      this.innerHTML = `<div id="cm-loader">
+        <span>Loading...</span>
         </div>`;
         return;
     }

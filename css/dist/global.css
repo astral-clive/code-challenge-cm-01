@@ -57,4 +57,23 @@ body {
   -moz-transition: all 0.4s;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
+}
+
+#cm-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#cm-loader span {
+  font-size: 4vw;
+}
+@media (max-width: 400px) {
+  #cm-loader span {
+    font-size: 16px;
+  }
 }/*# sourceMappingURL=global.css.map */

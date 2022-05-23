@@ -1,3 +1,5 @@
+@import 'inc/mixins';
+
 // variables to keep that consistency
 $background: #FFF;
 $gray_dark: #999;
@@ -80,4 +82,19 @@ body {
     }    
   }
 
+}
+
+// loader
+#cm-loader {
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & span {
+    @include responsive-font(4vw, 16px);
+  }
 }
