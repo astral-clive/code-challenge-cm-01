@@ -10,6 +10,7 @@ class Nav extends HTMLElement {
     this.serverError = false;
 
     this.timeOffset = false;
+    this.timeOutput = '';
   }
 
   connectedCallback() {
@@ -86,7 +87,8 @@ class Nav extends HTMLElement {
       locHours = locHours - 12;
     }
     const locSeconds = ('0'+locationTime.getSeconds()).slice(-2);
-    console.log( 'location time:', locHours + ":" + locMins + ":" + locSeconds + locSuffix);
+    // console.log( 'location time:', locHours + ":" + locMins + ":" + locSeconds + locSuffix);
+    this.timeOutput = locHours + ":" + locMins + ":" + locSeconds + locSuffix;
   }
 
   // listeners
